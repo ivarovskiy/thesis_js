@@ -1,0 +1,47 @@
+hr:not([size]) {
+  height: 4px;
+}
+
+.long {
+    height: calc(100vh - 56px);
+  }
+.bg-dark
+{
+    background-color: black; 
+}
+.main-wrapper {
+display: flex;
+}
+
+.img-loader {
+background-color: #C0C0C0;
+width: 100%;
+min-width: 100px;
+height: calc(100vh - 56px);
+}
+
+.navbar {
+width: 100%;
+}
+.hr-instr{
+  width: 100%;
+  color: white;
+}
+.input-em{
+  width: 50px;
+}
+.ul-pag{
+  padding: 2%;
+}
+.flex{
+  display: flex;
+  justify-content: space-between;
+}
+.flex-center {
+  margin: 0 auto;
+}
+.input-em-wt{
+  width: 50px;
+  background: transparent;
+  border: none;
+}

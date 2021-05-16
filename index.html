@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <!--<link rel="stylesheet" href="css/scan-xy.css">-->
+    <script src="script/scan-img.js"></script>
+    <script src="script/calc-xy.js"></script>
+    <title>Thesis</title>
+  </head>
+  <body onload="cle()">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-static-top" style="position: fixed;" >
+  <div class="container-xxl flex">
+    <a class="navbar-brand" href="/index.html">OscilographGraphs</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-center">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/index.html">Main page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="templates/help.html">Help</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="templates/about.html">About</a>
+        </li>
+      </ul>
+    </div>
+    <div class = "nav-item">
+      x = <input type="text" id="sx">
+      y = <input type="text" id="sy">
+    </div>
+  </div>
+</nav>
+  </header>
+<div class="main-wrapper">
+
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark long" style="width: 350px;">
+      <span class="fs-4">Tools</span>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto ul-pag flex-center">
+      <li class="nav-item">
+        <input type="file" id="fig" onchange="readURL()">
+      </li>
+      <hr class="hr-instr">
+      <li>
+        <a type="button" class="nav-link text-white" id="work">
+          Начать обработку
+        </a>
+      </li>
+      <li>
+        <a type="button" class="nav-link text-white" id="pro">
+          Продолжить
+        </a>
+      </li>
+      <li>
+        <a type="button" class="nav-link text-white" id="stop">
+          Сброс
+        </a>
+      </li>
+      <hr class="hr-instr">
+      <!-- Блок определения масштаба времени на растровом изображении осцилограммы-->
+      <li>
+        <data-bs-toggle="tooltip" data-bs-placement="top" title="Введите значение калибровочного интервала времени осциллограммы в поле 'To='. Выполните сканирование этого интервала на растровом изображении осциллограммы и  нажмите кнопку 'Калибровка'. В скрытом поле формы 'Mt=' появится масштаб времени. Нажмите кнопку 'Продолжить'"></data-bs-toggle>
+  Определения масштаба по времени<br>
+        <em class="emTo">To = <input type="text" id="kto" class="input-em"> мкс</em><br>
+        <em>Mt = <input type="text" id="Mt" style="background: transparent; border: none; width: 50px;"> мкс/пик</em>
+        <a type="button" class="nav-link text-white" id="mt">
+          Kалибровка
+        </a>
+      </li>
+      <hr class="hr-instr">
+      <!-- Блок определения координат нулевой линии растрового изображении осцилограммы-->
+      <li>
+        <data-bs-toggle="tooltip" data-bs-placement="top" title="Используя опцию меню 'Выберите файл' откройте в окне программы растровое изображение осциллограммы экспоненциального импульса, для которого будет определяться постоянная времени. Выполните сканирование двух точек нулевой линии осциллограммы. Нажмите кнопку 'Ввести нуль', после чего нажмите кнопку 'Продолжить'"></data-bs-toggle>
+        Нуль осцилограммы
+        <a type="button" class="nav-link text-white" id="zerU">
+          Ввести нуль
+        </a>
+      </li>
+      <hr class="hr-instr">
+      <li>
+        Количество точек сканирования N<br>
+        N = <input type="text" id="nn" class="input-em">
+        <a type="button" class="nav-link text-white" id="nn">
+          Ввод
+        </a>
+      </li>
+      <hr class="hr-instr">
+      <li>
+        <table cellspacing=0>
+          <tr><th>tau = <input type=text id="tt" class="input-em-wt"></th><th><table><tr><th > + </th></tr><tr><th> - </th></tr></table></th><th><input type=text id="rz" class="input-em-wt"></th> <th> мкс </th></tr>
+          </table>
+          <table>
+          <tr><th><em>delta = </em></th>
+          <th><table><tr><th > + </th></tr><tr><th> - </th></tr></table></th><th><input type=text id="err" class="input-em-wt"></th><th> % </th></tr>
+          </table>
+        <a type="button" class="nav-link text-white" id="ctau">
+          Вычислить
+        </a>
+      </li>
+      <li>
+      <hr class="hr-instr">
+      <table id="saveXY" class="tb-add">
+        <thead>
+        <tr><th colspan=3><a type="button" class="nav-link text-white" id="del">
+          Удалить строку
+        </a></th></tr>
+        <tr><th>N</th><th>X</th><th>Y</th></tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </table>
+      </li>
+    </ul>
+  </div>
+    <div class="img-loader">
+        <img scr = "" id="izo" class="img-loader">  
+        <div id="din">
+          Если возникает необходимость выполнить повторное измерение на той же осциллограмме, например, с дугим или тем
+          же количеством сканированных точек N без выполнения этапов масштабирования и определения координаты нулевой линии осциллограммы, нажмите кнопку "Сброс",
+          а затем кнопку "Продолжить". Введите в поле "N= " количество точек, в которых будет выполнено сканирование и, после нажатия кнопки "Ввод" и затем "Продолжить"
+          повторите измерение.<br>Если необходимо вернуться в начало процесса обработки, нажмите опцию окна браузера "обновить". 
+          </div>      
+    </div>
+</div>
+</body>
+</html>
