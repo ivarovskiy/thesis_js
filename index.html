@@ -15,19 +15,19 @@
   </head>
   <body onload="cle()">
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-static-top" style="position: fixed;" >
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-static-top" >
   <div class="container-xxl flex">
-    <a class="navbar-brand" href="/index.html">OscilographGraphs</a>
+    <a class="navbar-brand">OscilographGraphs</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-center">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/index.html">Main page</a>
+          <a class="nav-link active" aria-current="page">Main page</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="templates/help.html">Help</a>
+          <a class="nav-link">Help</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="templates/about.html">About</a>
+          <a class="nav-link">About</a>
         </li>
       </ul>
     </div>
@@ -40,19 +40,15 @@
   </header>
 <div class="main-wrapper">
 
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark long" style="width: 350px;">
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark long">
       <span class="fs-4">Tools</span>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto ul-pag flex-center">
       <li class="nav-item">
+        <data-bs-toggle="tooltip" data-bs-placement="top" title="Используя опцию меню 'Выберите файл' откройте в окне программы растровое изображение осциллограммы калибровочного прямоугольного импульса длительностью 1000 мкс. После этого нажмите кнопку 'Начать обработку'"></data-bs-toggle>
         <input type="file" id="fig" onchange="readURL()">
       </li>
       <hr class="hr-instr">
-      <li>
-        <a type="button" class="nav-link text-white" id="work">
-          Начать обработку
-        </a>
-      </li>
       <li>
         <a type="button" class="nav-link text-white" id="pro">
           Продолжить
@@ -68,8 +64,8 @@
       <li>
         <data-bs-toggle="tooltip" data-bs-placement="top" title="Введите значение калибровочного интервала времени осциллограммы в поле 'To='. Выполните сканирование этого интервала на растровом изображении осциллограммы и  нажмите кнопку 'Калибровка'. В скрытом поле формы 'Mt=' появится масштаб времени. Нажмите кнопку 'Продолжить'"></data-bs-toggle>
   Определения масштаба по времени<br>
-        <em class="emTo">To = <input type="text" id="kto" class="input-em"> мкс</em><br>
-        <em>Mt = <input type="text" id="Mt" style="background: transparent; border: none; width: 50px;"> мкс/пик</em>
+        <em>To = <input type="text" id="kto" class="input-em"> мкс</em><br>
+        <em>Mt = <input type="text" id="Mt" class="input-em-wt"> мкс/пик</em>
         <a type="button" class="nav-link text-white" id="mt">
           Kалибровка
         </a>
@@ -78,7 +74,7 @@
       <!-- Блок определения координат нулевой линии растрового изображении осцилограммы-->
       <li>
         <data-bs-toggle="tooltip" data-bs-placement="top" title="Используя опцию меню 'Выберите файл' откройте в окне программы растровое изображение осциллограммы экспоненциального импульса, для которого будет определяться постоянная времени. Выполните сканирование двух точек нулевой линии осциллограммы. Нажмите кнопку 'Ввести нуль', после чего нажмите кнопку 'Продолжить'"></data-bs-toggle>
-        Нуль осцилограммы
+        Нуль осцилограммы   Uz = <input type="text" id="prUz" class="input-em-wt">
         <a type="button" class="nav-link text-white" id="zerU">
           Ввести нуль
         </a>
@@ -87,12 +83,13 @@
       <li>
         Количество точек сканирования N<br>
         N = <input type="text" id="nn" class="input-em">
-        <a type="button" class="nav-link text-white" id="nn">
+        <a type="button" class="nav-link text-white" id="vnum">
           Ввод
         </a>
       </li>
       <hr class="hr-instr">
       <li>
+        Определение tau переходного процесса
         <table cellspacing=0>
           <tr><th>tau = <input type=text id="tt" class="input-em-wt"></th><th><table><tr><th > + </th></tr><tr><th> - </th></tr></table></th><th><input type=text id="rz" class="input-em-wt"></th> <th> мкс </th></tr>
           </table>
@@ -104,29 +101,28 @@
           Вычислить
         </a>
       </li>
-      <li>
-      <hr class="hr-instr">
+    </ul>
+  </div>
+    <div class="img-loader">
+        <img scr = "" id="izo" class="img-loader">  
+        <div id="din" class="din-in">
+          Если возникает необходимость выполнить повторное измерение на той же осциллограмме, например, с дугим или тем
+          же количеством сканированных точек N без выполнения этапов масштабирования и определения координаты нулевой линии осциллограммы, нажмите кнопку "Сброс",
+          а затем кнопку "Продолжить". Введите в поле "N= " количество точек, в которых будет выполнено сканирование и, после нажатия кнопки "Ввод" и затем "Продолжить"
+          повторите измерение.<br>Если необходимо вернуться в начало процесса обработки, нажмите опцию окна браузера "обновить". 
+          </div>      
+    </div>
+    <div class="right-side bg-dark text-white">
       <table id="saveXY" class="tb-add">
         <thead>
         <tr><th colspan=3><a type="button" class="nav-link text-white" id="del">
-          Удалить строку
+          Удалить 
         </a></th></tr>
         <tr><th>N</th><th>X</th><th>Y</th></tr>
         </thead>
         <tbody>
         </tbody>
         </table>
-      </li>
-    </ul>
-  </div>
-    <div class="img-loader">
-        <img scr = "" id="izo" class="img-loader">  
-        <div id="din">
-          Если возникает необходимость выполнить повторное измерение на той же осциллограмме, например, с дугим или тем
-          же количеством сканированных точек N без выполнения этапов масштабирования и определения координаты нулевой линии осциллограммы, нажмите кнопку "Сброс",
-          а затем кнопку "Продолжить". Введите в поле "N= " количество точек, в которых будет выполнено сканирование и, после нажатия кнопки "Ввод" и затем "Продолжить"
-          повторите измерение.<br>Если необходимо вернуться в начало процесса обработки, нажмите опцию окна браузера "обновить". 
-          </div>      
     </div>
 </div>
 </body>

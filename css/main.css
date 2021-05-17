@@ -3,12 +3,9 @@ hr:not([size]) {
 }
 
 .long {
+    top:56px;
     height: calc(100vh - 56px);
   }
-.bg-dark
-{
-    background-color: black; 
-}
 .main-wrapper {
 display: flex;
 }
@@ -18,6 +15,7 @@ background-color: #C0C0C0;
 width: 100%;
 min-width: 100px;
 height: calc(100vh - 56px);
+display: flex;
 }
 
 .navbar {
@@ -44,4 +42,11 @@ width: 100%;
   width: 50px;
   background: transparent;
   border: none;
+  color:white;
+}
+.right-side{
+  display: flex;
+}
+.din-in{
+  margin-bottom: 50%;
 }
