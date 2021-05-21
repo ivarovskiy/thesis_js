@@ -65,6 +65,7 @@ body{
 .start-info{
   justify-content: center;
   padding-left: 15px;
+  padding-top: 10px;
   background-color: black;
   color: white;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
