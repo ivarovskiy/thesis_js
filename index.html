@@ -11,27 +11,22 @@
     <!--<link rel="stylesheet" href="css/scan-xy.css">-->
     <script src="script/scan-img.js"></script>
     <script src="script/calc-xy.js"></script>
-    <title>Thesis</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <title >OscilographGraphs</title>
   </head>
   <body onload="cle()">
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-static-top" >
   <div class="container-xxl flex">
-    <a class="navbar-brand">OscilographGraphs</a>
+    <a class="navbar-brand">OscilographGraphs</a> 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-center">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page">Main page</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">Help</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link">About</a>
+          <a href="templates/help.html " target="_blank" class="nav-link">Help</a>
         </li>
       </ul>
     </div>
-    <div class = "nav-item">
+    <div class = "nav-item" id="xy-s">
       x = <input type="text" id="sx">
       y = <input type="text" id="sy">
     </div>
@@ -41,14 +36,16 @@
 <div class="main-wrapper">
 
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark long">
-      <span class="fs-4">Tools</span>
+      <span class="fs-4">Инструменты</span>
     <hr>
-    <ul class="nav nav-pills flex-column mb-auto ul-pag flex-center">
+    <ul class="nav nav-pills flex-column mb-auto ul-pag flex-center" id="hide-off">
       <li class="nav-item">
         <data-bs-toggle="tooltip" data-bs-placement="top" title="Используя опцию меню 'Выберите файл' откройте в окне программы растровое изображение осциллограммы калибровочного прямоугольного импульса длительностью 1000 мкс. После этого нажмите кнопку 'Начать обработку'"></data-bs-toggle>
         <input type="file" id="fig" onchange="readURL()">
       </li>
       <hr class="hr-instr">
+    </ul>
+    <ul class="nav nav-pills flex-column mb-auto ul-pag flex-center" id="start-point">
       <li>
         <a type="button" class="nav-link text-white" id="pro">
           Продолжить
@@ -63,7 +60,7 @@
       <!-- Блок определения масштаба времени на растровом изображении осцилограммы-->
       <li>
         <data-bs-toggle="tooltip" data-bs-placement="top" title="Введите значение калибровочного интервала времени осциллограммы в поле 'To='. Выполните сканирование этого интервала на растровом изображении осциллограммы и  нажмите кнопку 'Калибровка'. В скрытом поле формы 'Mt=' появится масштаб времени. Нажмите кнопку 'Продолжить'"></data-bs-toggle>
-  Определения масштаба по времени<br>
+          Определения масштаба по времени<br>
         <em>To = <input type="text" id="kto" class="input-em"> мкс</em><br>
         <em>Mt = <input type="text" id="Mt" class="input-em-wt"> мкс/пик</em>
         <a type="button" class="nav-link text-white" id="mt">
@@ -80,15 +77,22 @@
         </a>
       </li>
       <hr class="hr-instr">
+      <!-- Блок определения количества точек сканирования-->
       <li>
+        <data-bs-toggle="tooltip" data-bs-placement="top" title="Введите в поле 'N ='  количество точек, в которых будет выполнено сканирование и нажмите кнопку 'Ввод'. После этого нажмите кнопку 'Продолжить'."></data-bs-toggle>
         Количество точек сканирования N<br>
         N = <input type="text" id="nn" class="input-em">
         <a type="button" class="nav-link text-white" id="vnum">
-          Ввод
+        Ввод
         </a>
       </li>
       <hr class="hr-instr">
+      <!-- Блок искомой информации-->
       <li>
+        <data-bs-toggle="tooltip" data-bs-placement="top" title="Выполните сканирование экспоненциального импульса напряжения осциллограммы до появления сообщения о завершении сканирования.
+        Нажмите кнопку 'Вычислить'.Результаты измерения в скрытых полях форм: 'tau='' - постоянная времени;
+        'error='' - абсолютная ощибка определения tau; 
+        delta - относительная ошибка определения tau. "></data-bs-toggle>
         Определение tau переходного процесса
         <table cellspacing=0>
           <tr><th>tau = <input type=text id="tt" class="input-em-wt"></th><th><table><tr><th > + </th></tr><tr><th> - </th></tr></table></th><th><input type=text id="rz" class="input-em-wt"></th> <th> мкс </th></tr>
@@ -104,7 +108,13 @@
     </ul>
   </div>
     <div class="img-loader">
-        <img scr = "" id="izo" class="img-loader">  
+        <img scr = "" id="izo" class="img-loader"> 
+        <button type="button" class="button-start" id="btn-str">Начать работу</button>
+        <div id="start-info" class="start-info">
+          Перед началом работы просьба ознакомится с методикой проведения измерений. <br> Для большей удобности пользования были добавлены всплывающие подсказки при наведении курсором мыши на блоки с информацией
+          1. Выберите необходимый Вам файл с растровым изображением осцилограммы<br>2. Калибровка - определение масштаба времени<br>3. Нуль осциллограммы - сканирование двух точек нулевой линии осциллограммы<br>
+          4. Задайте количество точек сканирования<br>5. Выполните сканирование экспоненциального импульса напряжения осциллограммы до появления сообщения о завершении сканирования<br>Приятного использования!
+        </div>
         <div id="din" class="din-in">
           Если возникает необходимость выполнить повторное измерение на той же осциллограмме, например, с дугим или тем
           же количеством сканированных точек N без выполнения этапов масштабирования и определения координаты нулевой линии осциллограммы, нажмите кнопку "Сброс",

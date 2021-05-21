@@ -1,5 +1,3 @@
-$(document).ready(function()
-{
 //Объявление переменных для координат
 var x;
 var y;
@@ -22,6 +20,36 @@ var delta; //Переменная разброса сканированных т
 var pog; //Переменная для относительной погрешности определения tau
 var apog//Переменная для абсолютной погрешности определения tau
 
+function clearingPull() {
+  for(var m=i;m>=0;m--)
+  {
+  $(".dat:last").remove();
+  T[m]=undefined;U[m]=undefined;
+  };
+  k=1;i=0;
+}
+$(document).ready(function()
+{
+
+$("#start-point").hide();
+$("#saveXY").hide();
+$("#xy-s").hide();
+$("#hide-off").hide();
+
+$("#btn-str").click(function(){
+  $("#btn-str").hide();
+  $("#start-info").hide();
+  $("#hide-off").show();
+  for(var m=i;m>=0;m--)
+{
+$(".dat:last").remove();
+T[m]=undefined;U[m]=undefined;
+};
+k=1;i=0;
+});
+
+
+
 /*Фиксирует координаты курсора при его перемешении по загруженному изображению осциллограммы, используя событие mousemove.
  Для извлечения информации о текущей координате курсора использует свойства pageX и pageY объекта event.
 Для занесения текущих координат в скрытые поля форм с id селекторами #sx, #sy использует свойство value объекта form*/
@@ -31,6 +59,8 @@ $("#izo").mousemove(function(){
 document.getElementById("sx").value=x;
 document.getElementById("sy").value=y;
 });
+
+
 $("#din").hide();
 /*Скрывает блоки с id: numb, cmt, Uzero, begin при нажатии кнопки "Сброс", кроме блока tau для рассчета по даннм сканирования постоянной времени переходного процесса*/
 // Очищает массивы сканированых данных и поля форм результатов
